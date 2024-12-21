@@ -16,8 +16,8 @@ class Button extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
       ),
-      child: const Text(
-        'Login',
+      child:Text(
+        text,
         style: TextStyle(fontSize: 16, color: Colors.white),
       ),
     );

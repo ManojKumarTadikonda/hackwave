@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hackwave/pages/login.dart';
 
-class WasteWiseHomePage extends StatelessWidget {
-  const WasteWiseHomePage({super.key});
+class Welcomepage extends StatelessWidget {
+  const Welcomepage({super.key});
 
   @override
   Widget build(BuildContext context) {

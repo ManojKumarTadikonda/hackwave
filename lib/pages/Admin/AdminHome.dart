@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hackwave/pages/Admin/AdminDashboard.dart';
 import 'package:hackwave/pages/Admin/AdminComplaints.dart';
 import 'package:hackwave/pages/Admin/Adminfeedback.dart';
+import 'package:hackwave/widgets/Bottom.dart';
+
 class Adminhome extends StatefulWidget {
   @override
   _AdminhomeState createState() => _AdminhomeState();
@@ -44,7 +46,8 @@ class _AdminhomeState extends State<Adminhome> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AdminDashboardPage()),
+                        MaterialPageRoute(
+                            builder: (context) => AdminDashboardPage()),
                       );
                     },
                     child: buildCard('Dashboard', Icons.dashboard),
@@ -54,9 +57,11 @@ class _AdminhomeState extends State<Adminhome> {
                   // Complaints Container
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context, 
-                      MaterialPageRoute(builder: (context)=>ComplaintsPage(),)
-                      );
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ComplaintsPage(),
+                          ));
                     },
                     child: buildCard('Complaints', Icons.report),
                   ),
@@ -65,9 +70,10 @@ class _AdminhomeState extends State<Adminhome> {
                   // Feedback Container
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context, 
-                      MaterialPageRoute(builder: (context)=> FeedbackPage())
-                      );
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FeedbackPage()));
                     },
                     child: buildCard('Feedback', Icons.feedback),
                   ),
@@ -75,6 +81,11 @@ class _AdminhomeState extends State<Adminhome> {
               ),
             ),
           ),
+          const Spacer(),
+          Bottom(),
+          const SizedBox(
+            height: 20,
+          )
         ],
       ),
     );

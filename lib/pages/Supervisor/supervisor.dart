@@ -8,7 +8,7 @@ class Supervisor extends StatefulWidget {
 }
 
 class _SupervisorState extends State<Supervisor> {
-  String selectedRole = 'AREA1'; // Set a valid default value
+  String selectedRole = "MVP Colony"; // Set a valid default value
   final TextEditingController usernameController = TextEditingController();
 
   @override
@@ -18,18 +18,23 @@ class _SupervisorState extends State<Supervisor> {
       body: Column(
         children: [
           AppBar(
-            backgroundColor: Color(0xFF4CAF50),
+            backgroundColor: const Color(0xFF4CAF50),
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 30.0),
-                child: Icon(
-                  Icons.notifications,
-                  color: Colors.amber,
+                child: GestureDetector(
+                  onTap: () {
+                    //Navigator.push(context, MaterialPageRoute(builder:(context)=>),);
+                  },
+                  child: const Icon(
+                    Icons.notifications,
+                    color: Colors.amber,
+                  ),
                 ),
-              )
+              ),
             ],
-            title: Padding(
-              padding: const EdgeInsets.only(left: 20.0),
+            title: const Padding(
+              padding: EdgeInsets.only(left: 20.0),
               child: Text(
                 'Supervisor',
                 style: TextStyle(
@@ -43,16 +48,16 @@ class _SupervisorState extends State<Supervisor> {
             padding: const EdgeInsets.all(30.0),
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
-                Text(
+                const Text(
                   'Report daily waste percentage',
                   style: TextStyle(
                     fontSize: 18,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 DropdownButtonFormField<String>(
@@ -84,7 +89,40 @@ class _SupervisorState extends State<Supervisor> {
                       Colors.lightGreen[100], // Background color for dropdown
                   icon: const Icon(Icons.arrow_drop_down,
                       color: Colors.black), // Dropdown arrow icon
-                  items: ['AREA1', 'AREA2', 'AREA3']
+                  items: [
+                    "MVP Colony",
+                    "Gajuwaka",
+                    "Dwaraka Nagar",
+                    "RK Beach",
+                    "Seethammadhara",
+                    "Kailasagiri",
+                    "Madhurawada",
+                    "Arilova",
+                    "Pendurthi",
+                    "Bheemunipatnam",
+                    "Anakapalle",
+                    "Yendada",
+                    "Chinna Waltair",
+                    "Kancharapalem",
+                    "Isukathota",
+                    "Simhachalam",
+                    "Town Kotha Road",
+                    "Old Gajuwaka",
+                    "Steel Plant Township",
+                    "Daba Gardens",
+                    "Lawsons Bay Colony",
+                    "Chodavaram",
+                    "NAD Junction",
+                    "Kancherapalem",
+                    "Malkapuram",
+                    "Pedagantyada",
+                    "Port Area",
+                    "Railway New Colony",
+                    "Adavivaram",
+                    "China Mushidiwada",
+                    "Beach Road",
+                    "Kapuluppada"
+                  ]
                       .map((role) => DropdownMenuItem(
                             value: role,
                             child: Text(
@@ -111,17 +149,18 @@ class _SupervisorState extends State<Supervisor> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
-                    
                   ),
                 ),
                 const SizedBox(height: 40),
-                Button(text: 'Submit', funtion: (){})
+                Button(text: 'Submit', funtion: () {})
               ],
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Bottom(),
-          SizedBox(height: 20,)
+          const SizedBox(
+            height: 20,
+          )
         ],
       ),
     );

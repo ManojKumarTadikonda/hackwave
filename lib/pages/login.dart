@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hackwave/pages/Users/userhome.dart';
+import 'package:hackwave/pages/signup.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:hackwave/pages/Admin/AdminHome.dart';
+import 'package:hackwave/pages/Supervisor/supervisor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -9,6 +16,91 @@ class _LoginPageState extends State<LoginPage> {
   String selectedRole = 'User';
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool isLoading = false;
+
+  String? usernameError;
+  String? passwordError;
+
+  void validateFields() {
+    setState(() {
+      usernameError = usernameController.text.isEmpty ? 'Enter username' : null;
+      passwordError = passwordController.text.isEmpty ? 'Enter password' : null;
+    });
+  }
+
+   Future<void> storeToken(String token) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('auth_token', token);
+  }
+
+  Future<void> _SendLoginApi(String name, String password) async {
+    setState(() {
+      isLoading = true;
+    });
+    final url = Uri.parse('http://localhost:5000/login');
+    final body = {
+      "username": name,
+      "password": password,
+    };
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          "Content-Type": "application/json",
+          "origin": 'http://localhost:8080',
+        },
+        body: json.encode(body),
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['token'] != null && data['role'] != null) {
+          await storeToken(data['token']);
+          final role = data['role'];
+           if (role == 'Admin') {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => Adminhome(), // Replace with your Admin page widget
+            ),
+          );
+        } else if (role == 'Supervisor') {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => Supervisor(), // Replace with your Supervisor page widget
+            ),
+          );
+        } else if (role == 'User') {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => Userhome(), // Replace with your User page widget
+            ),
+          );
+        } else {
+          showSnackbar("Unknown role. Please contact support.");
+        }
+        }
+        else {
+          showSnackbar("Unexpected response format. Please try again.");
+        }
+      }else {
+        showSnackbar("Login failed. Enter valid credentials");
+      }
+    } catch (e) {
+      showSnackbar("An error occurred. Check your connection and try again.");
+    }finally{
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  void showSnackbar(String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      backgroundColor: Colors.red,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +108,6 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: const Color(0xFFEAFBF1),
       body: Stack(
         children: [
-          // Login Form
           Center(
             child: SingleChildScrollView(
               child: Padding(
@@ -24,14 +115,12 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // App Icon
                     Image.asset(
-                      'assets/recycle.png', // Replace with the actual path to your image asset
+                      'assets/recycle.png',
                       height: 100,
                       width: 100,
                     ),
                     const SizedBox(height: 20),
-                    // Title
                     const Text(
                       'LOGIN',
                       style: TextStyle(
@@ -41,7 +130,6 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     const SizedBox(height: 30),
-                    // Dropdown for Role Selection
                     DropdownButtonFormField<String>(
                       value: selectedRole,
                       onChanged: (value) {
@@ -51,55 +139,49 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       decoration: InputDecoration(
                         labelText: 'Select Role',
-                        labelStyle: const TextStyle(
-                            color: Colors.green, fontSize: 16), // Label styling
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30.0),
-                          borderSide: const BorderSide(
-                            color: Colors.green, // Border color
-                            width: 2.0,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                          borderSide: const BorderSide(
-                            color:Colors.greenAccent, // Border color when focused
-                            width: 2.0,
-                          ),
                         ),
                       ),
-                      dropdownColor: Colors
-                          .lightGreen[100], // Background color for dropdown
-                      icon:const  Icon(Icons.arrow_drop_down,
-                          color: Colors.green), // Dropdown arrow icon
                       items: ['User', 'Supervisor', 'Admin']
                           .map((role) => DropdownMenuItem(
                                 value: role,
-                                child: Text(
-                                  role,
-                                  style: TextStyle(
-                                    color: Colors.green[800], // Text color
-                                    fontSize: 16, // Font size
-                                    fontWeight: FontWeight.bold, // Bold text
-                                  ),
-                                ),
+                                child: Text(role),
                               ))
                           .toList(),
-                      style: TextStyle(
-                        color: Colors
-                            .green[900], // Text style of the selected item
-                        fontSize: 16,
-                      ),
                     ),
-
                     const SizedBox(height: 20),
                     // Username Field
                     TextFormField(
                       controller: usernameController,
                       decoration: InputDecoration(
-                        labelText: 'Username',
+                        labelText: usernameError ?? 'Username',
+                        labelStyle: TextStyle(
+                          color: Colors.grey,
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30.0),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                          borderSide: BorderSide(
+                            color: usernameError != null
+                                ? Colors.red
+                                : Colors.grey,
+                            width: 2.0,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                          borderSide: BorderSide(
+                            color: usernameError != null
+                                ? Colors.red
+                                : Colors.grey,
+                            width: 2.0,
+                          ),
                         ),
                       ),
                     ),
@@ -109,16 +191,46 @@ class _LoginPageState extends State<LoginPage> {
                       controller: passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
-                        labelText: 'Password',
+                        labelText: passwordError ?? 'Password',
+                        labelStyle: TextStyle(
+                          color: Colors.grey,
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30.0),
+                          borderSide: BorderSide(
+                            color: passwordError != null
+                                ? Colors.red
+                                : Colors.grey,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                          borderSide: BorderSide(
+                            color: passwordError != null
+                                ? Colors.red
+                                : Colors.grey,
+                            width: 2.0,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                          borderSide: BorderSide(
+                            color: passwordError != null
+                                ? Colors.red
+                                : Colors.grey,
+                            width: 2.0,
+                          ),
                         ),
                       ),
                     ),
                     const SizedBox(height: 30),
-                    // Login Button
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        validateFields();
+                        if (usernameError == null && passwordError == null) {
+                          _SendLoginApi(usernameController.text, passwordController.text);
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF4CAF50),
                         padding: const EdgeInsets.symmetric(
@@ -127,16 +239,19 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                      child: const Text(
-                        'Login',
+                      child: Text(
+                        isLoading ? 'Login..' : 'Login',
                         style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                     ),
                     const SizedBox(height: 20),
-                    // Register Link
                     GestureDetector(
                       onTap: () {
-                        // print('Register as New User tapped');
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (builder) => SignupPage(),
+                          ),
+                        );
                       },
                       child: const Text(
                         'Register as New User',
