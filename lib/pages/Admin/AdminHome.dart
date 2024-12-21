@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hackwave/pages/Admin.dart';
-
+import 'package:hackwave/pages/Admin/AdminDashboard.dart';
+import 'package:hackwave/pages/Admin/AdminComplaints.dart';
+import 'package:hackwave/pages/Admin/Adminfeedback.dart';
 class Adminhome extends StatefulWidget {
   @override
   _AdminhomeState createState() => _AdminhomeState();
@@ -53,7 +54,9 @@ class _AdminhomeState extends State<Adminhome> {
                   // Complaints Container
                   GestureDetector(
                     onTap: () {
-                      // Navigate to Complaints page
+                      Navigator.push(context, 
+                      MaterialPageRoute(builder: (context)=>ComplaintsPage(),)
+                      );
                     },
                     child: buildCard('Complaints', Icons.report),
                   ),
@@ -62,7 +65,9 @@ class _AdminhomeState extends State<Adminhome> {
                   // Feedback Container
                   GestureDetector(
                     onTap: () {
-                      // Navigate to Feedback page
+                      Navigator.push(context, 
+                      MaterialPageRoute(builder: (context)=> FeedbackPage())
+                      );
                     },
                     child: buildCard('Feedback', Icons.feedback),
                   ),

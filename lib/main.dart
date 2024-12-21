@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:hackwave/pages/Admin.dart';
-import 'package:hackwave/pages/AdminHome.dart';
+import 'package:hackwave/pages/Admin/AdminHome.dart';
 // import 'package:hackwave/pages/Welcomepage.dart';
 void main() {
   runApp(MyApp());
