@@ -8,67 +8,67 @@ class FeedbackPage extends StatefulWidget {
 class _FeedbackPageState extends State<FeedbackPage> {
   // Mock data for feedback
   List<Map<String, dynamic>> feedbacks = [
-    {
-      "area": "Area 1",
-      "supervisor": "John Doe",
-      "rating": 4.5,
-      "description": "The supervisor is very responsive and handles complaints efficiently."
-    },
-    {
-      "area": "Area 2",
-      "supervisor": "Jane Smith",
-      "rating": 3.0,
-      "description": "The supervisor is good but often delays responding to complaints."
-    },
-    {
-      "area": "Area 3",
-      "supervisor": "Mike Johnson",
-      "rating": 5.0,
-      "description": "Excellent supervisor. Very efficient and punctual."
-    },
-    {
-      "area": "Area 4",
-      "supervisor": "Emma Brown",
-      "rating": 2.5,
-      "description": "Needs improvement in communication and timely action."
-    },
-    {
-      "area": "Area 5",
-      "supervisor": "William Davis",
-      "rating": 4.0,
-      "description": "Good supervisor with minor issues in coordinating tasks."
-    },
-    {
-      "area": "Area 6",
-      "supervisor": "Sophia Wilson",
-      "rating": 3.5,
-      "description": "Average performance but is willing to improve."
-    },
-    {
-      "area": "Area 7",
-      "supervisor": "James Anderson",
-      "rating": 4.8,
-      "description": "Highly professional and responsive supervisor."
-    },
-    {
-      "area": "Area 8",
-      "supervisor": "Olivia Martinez",
-      "rating": 2.0,
-      "description": "Fails to address complaints and lacks proper communication skills."
-    },
-    {
-      "area": "Area 9",
-      "supervisor": "Liam Garcia",
-      "rating": 4.3,
-      "description": "A reliable supervisor with a good track record."
-    },
-    {
-      "area": "Area 10",
-      "supervisor": "Isabella Rodriguez",
-      "rating": 3.8,
-      "description": "Overall good but needs improvement in timely follow-ups."
-    },
-  ];
+  {
+    "area": "MVP Colony",
+    "supervisor": "manoj",
+    "rating": 4.5,
+    "description": "The supervisor is very responsive and handles complaints efficiently."
+  },
+  {
+    "area": "Gajuwaka",
+    "supervisor": "mohan",
+    "rating": 3.0,
+    "description": "The supervisor is good but often delays responding to complaints."
+  },
+  {
+    "area": "Dwaraka Nagar",
+    "supervisor": "sneha",
+    "rating": 5.0,
+    "description": "Excellent supervisor. Very efficient and punctual."
+  },
+  {
+    "area": "RK Beach",
+    "supervisor": "farhana",
+    "rating": 2.5,
+    "description": "Needs improvement in communication and timely action."
+  },
+  {
+    "area": "Seethammadhara",
+    "supervisor": "rahul",
+    "rating": 4.0,
+    "description": "Good supervisor with minor issues in coordinating tasks."
+  },
+  {
+    "area": "Kailasagiri",
+    "supervisor": "geeta",
+    "rating": 3.5,
+    "description": "Average performance but is willing to improve."
+  },
+  {
+    "area": "Arilova",
+    "supervisor": "priya",
+    "rating": 4.8,
+    "description": "Highly professional and responsive supervisor."
+  },
+  {
+    "area": "Pendurthi",
+    "supervisor": "arun",
+    "rating": 2.0,
+    "description": "Fails to address complaints and lacks proper communication skills."
+  },
+  {
+    "area": "Bheemunipatnam",
+    "supervisor": "divya",
+    "rating": 4.3,
+    "description": "A reliable supervisor with a good track record."
+  },
+  {
+    "area": "Anakapalle",
+    "supervisor": "vishal",
+    "rating": 3.8,
+    "description": "Overall good but needs improvement in timely follow-ups."
+  },
+];
 
   // Function to show popup dialog with detailed feedback
   void _showFeedbackDialog(Map<String, dynamic> feedback) {

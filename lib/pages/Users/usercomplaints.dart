@@ -14,39 +14,17 @@ class _UserComplaintsPageState extends State<UserComplaintsPage> {
 
   String? selectedLocation; // Selected location
   final List<String> locations = [
-  "MVP Colony",
-  "Gajuwaka",
-  "Dwaraka Nagar",
-  "RK Beach",
-  "Seethammadhara",
-  "Kailasagiri",
-  "Madhurawada",
-  "Arilova",
-  "Pendurthi",
-  "Bheemunipatnam",
-  "Anakapalle",
-  "Yendada",
-  "Chinna Waltair",
-  "Kancharapalem",
-  "Isukathota",
-  "Simhachalam",
-  "Town Kotha Road",
-  "Old Gajuwaka",
-  "Steel Plant Township",
-  "Daba Gardens",
-  "Lawsons Bay Colony",
-  "Chodavaram",
-  "NAD Junction",
-  "Kancherapalem",
-  "Malkapuram",
-  "Pedagantyada",
-  "Port Area",
-  "Railway New Colony",
-  "Adavivaram",
-  "China Mushidiwada",
-  "Beach Road",
-  "Kapuluppada"
-];
+    "MVP Colony",
+    "Gajuwaka",
+    "Dwaraka Nagar",
+    "RK Beach",
+    "Seethammadhara",
+    "Kailasagiri",
+    "Arilova",
+    "Pendurthi",
+    "Bheemunipatnam",
+    "Anakapalle",
+  ];
 
   void _submitComplaint() {
     if (_formKey.currentState?.validate() ?? false) {
@@ -67,9 +45,7 @@ class _UserComplaintsPageState extends State<UserComplaintsPage> {
                 "Your complaint has been submitted for location: $location.\nDescription: $complaint"),
             actions: [
               TextButton(
-                onPressed: () => {
-                  Navigator.pop(context)
-                },
+                onPressed: () => {Navigator.pop(context)},
                 child: const Text("Close"),
               ),
             ],

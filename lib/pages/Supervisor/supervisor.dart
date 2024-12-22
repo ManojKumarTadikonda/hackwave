@@ -76,6 +76,18 @@ class _SupervisorState extends State<Supervisor> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
+  static const Map<String, String> locations = {
+    "MVP Colony": "manoj",
+    "Gajuwaka": "mohan",
+    "Dwaraka Nagar": "sneha",
+    "RK Beach": "farhana",
+    "Seethammadhara": "rahul",
+    "Kailasagiri": "geeta",
+    "Arilova": "priya",
+    "Pendurthi": "arun",
+    "Bheemunipatnam": "divya",
+    "Anakapalle": "vishal",
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +96,7 @@ class _SupervisorState extends State<Supervisor> {
       body: Column(
         children: [
           AppBar(
-            automaticallyImplyLeading: false, 
+            automaticallyImplyLeading: false,
             backgroundColor: const Color(0xFF4CAF50),
             actions: [
               Padding(
@@ -163,32 +175,10 @@ class _SupervisorState extends State<Supervisor> {
                     "RK Beach",
                     "Seethammadhara",
                     "Kailasagiri",
-                    "Madhurawada",
                     "Arilova",
                     "Pendurthi",
                     "Bheemunipatnam",
                     "Anakapalle",
-                    "Yendada",
-                    "Chinna Waltair",
-                    "Kancharapalem",
-                    "Isukathota",
-                    "Simhachalam",
-                    "Town Kotha Road",
-                    "Old Gajuwaka",
-                    "Steel Plant Township",
-                    "Daba Gardens",
-                    "Lawsons Bay Colony",
-                    "Chodavaram",
-                    "NAD Junction",
-                    "Kancherapalem",
-                    "Malkapuram",
-                    "Pedagantyada",
-                    "Port Area",
-                    "Railway New Colony",
-                    "Adavivaram",
-                    "China Mushidiwada",
-                    "Beach Road",
-                    "Kapuluppada"
                   ]
                       .map((role) => DropdownMenuItem(
                             value: role,
