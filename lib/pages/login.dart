@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       isLoading = true;
     });
-    final url = Uri.parse('http://localhost:5000/login');
+    final url = Uri.parse('https://gvmc.onrender.com/api/auth/login');
     final body = {
       "username": name,
       "password": password,
@@ -51,28 +51,30 @@ class _LoginPageState extends State<LoginPage> {
         },
         body: json.encode(body),
       );
+      print(response.body);
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         if (data['token'] != null && data['role'] != null) {
           await storeToken(data['token']);
           final role = data['role'];
-           if (role == 'Admin') {
+          final username = data['username'];
+           if (role == 'admin') {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => Adminhome(), // Replace with your Admin page widget
+              builder: (context) => Adminhome(name: username,), // Replace with your Admin page widget
             ),
           );
-        } else if (role == 'Supervisor') {
+        } else if (role == 'supervisor') {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => Supervisor(), // Replace with your Supervisor page widget
+              builder: (context) => Supervisor(name: username,), // Replace with your Supervisor page widget
             ),
           );
-        } else if (role == 'User') {
+        } else if (role == 'user') {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => Userhome(), // Replace with your User page widget
+              builder: (context) => Userhome(name: username,), // Replace with your User page widget
             ),
           );
         } else {

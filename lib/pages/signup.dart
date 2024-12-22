@@ -56,12 +56,12 @@ class _SignupPageState extends State<SignupPage> {
     setState(() {
       isLoading = true;
     });
-    final url = Uri.parse('http://localhost:5000/signup');
+    final url = Uri.parse('https://gvmc.onrender.com/api/auth/signup');
     final body = {
       "username": name,
       "email": email,
-      "passowrd": password,
-      "role": 'user,'
+      "password": password,
+      "role": 'user',
     };
 
     try {
@@ -73,18 +73,19 @@ class _SignupPageState extends State<SignupPage> {
         },
         body: json.encode(body),
       );
-      if (response.statusCode == 200) {
+      print(response.body);
+      if (response.statusCode == 201) {
         setState(() {
           isLoading = false;
         });
         showSnackbar('Sign-up successful!', Colors.green);
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (builder) => SignupPage(),
+            builder: (builder) => LoginPage(),
           ),
         );
       } else {
-        showSnackbar("Sign Up failed. Enter valid username", Colors.green);
+        showSnackbar("Sign Up failed. Enter valid username", Colors.red);
       }
     } catch (e) {
       showSnackbar(
@@ -92,7 +93,9 @@ class _SignupPageState extends State<SignupPage> {
         Colors.red,
       );
     } finally {
-      setState(() {});
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 

@@ -68,9 +68,7 @@ class _UserComplaintsPageState extends State<UserComplaintsPage> {
             actions: [
               TextButton(
                 onPressed: () => {
-                  Navigator.push(context, 
-                  MaterialPageRoute(builder: (context)=>Userhome())
-                  )
+                  Navigator.pop(context)
                 },
                 child: const Text("Close"),
               ),

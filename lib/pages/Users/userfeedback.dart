@@ -13,41 +13,40 @@ class _UserFeedbackPageState extends State<UserFeedbackPage> {
   final TextEditingController _feedbackController = TextEditingController();
 
   String? selectedLocation; // Selected location
-  final List<String> locations =  [
-  "MVP Colony",
-  "Gajuwaka",
-  "Dwaraka Nagar",
-  "RK Beach",
-  "Seethammadhara",
-  "Kailasagiri",
-  "Madhurawada",
-  "Arilova",
-  "Pendurthi",
-  "Bheemunipatnam",
-  "Anakapalle",
-  "Yendada",
-  "Chinna Waltair",
-  "Kancharapalem",
-  "Isukathota",
-  "Simhachalam",
-  "Town Kotha Road",
-  "Old Gajuwaka",
-  "Steel Plant Township",
-  "Daba Gardens",
-  "Lawsons Bay Colony",
-  "Chodavaram",
-  "NAD Junction",
-  "Kancherapalem",
-  "Malkapuram",
-  "Pedagantyada",
-  "Port Area",
-  "Railway New Colony",
-  "Adavivaram",
-  "China Mushidiwada",
-  "Beach Road",
-  "Kapuluppada"
-];
-
+  final List<String> locations = [
+    "MVP Colony",
+    "Gajuwaka",
+    "Dwaraka Nagar",
+    "RK Beach",
+    "Seethammadhara",
+    "Kailasagiri",
+    "Madhurawada",
+    "Arilova",
+    "Pendurthi",
+    "Bheemunipatnam",
+    "Anakapalle",
+    "Yendada",
+    "Chinna Waltair",
+    "Kancharapalem",
+    "Isukathota",
+    "Simhachalam",
+    "Town Kotha Road",
+    "Old Gajuwaka",
+    "Steel Plant Township",
+    "Daba Gardens",
+    "Lawsons Bay Colony",
+    "Chodavaram",
+    "NAD Junction",
+    "Kancherapalem",
+    "Malkapuram",
+    "Pedagantyada",
+    "Port Area",
+    "Railway New Colony",
+    "Adavivaram",
+    "China Mushidiwada",
+    "Beach Road",
+    "Kapuluppada"
+  ];
 
   int selectedStars = 0; // Star rating
 
@@ -73,11 +72,7 @@ class _UserFeedbackPageState extends State<UserFeedbackPage> {
             ),
             actions: [
               TextButton(
-                onPressed: () =>{
-                  Navigator.push(context, 
-                  MaterialPageRoute(builder: (context)=>Userhome())
-                  )
-                },
+                onPressed: () => {Navigator.pop(context)},
                 child: const Text("Close"),
               ),
             ],
@@ -159,9 +154,8 @@ class _UserFeedbackPageState extends State<UserFeedbackPage> {
                       },
                       icon: Icon(
                         Icons.star,
-                        color: index < selectedStars
-                            ? Colors.orange
-                            : Colors.grey,
+                        color:
+                            index < selectedStars ? Colors.orange : Colors.grey,
                       ),
                     );
                   }),

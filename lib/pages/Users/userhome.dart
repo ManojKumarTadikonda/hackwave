@@ -5,6 +5,8 @@ import 'package:hackwave/pages/Users/userreport.dart';
 import 'package:hackwave/widgets/Bottom.dart';
 
 class Userhome extends StatefulWidget {
+  final String name;
+  const Userhome({super.key, required this.name});
   @override
   _UserhomeState createState() => _UserhomeState();
 }
@@ -14,6 +16,7 @@ class _UserhomeState extends State<Userhome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, 
         backgroundColor: const Color(0xFF4CAF50),
         actions: const [
           Padding(
@@ -45,7 +48,7 @@ class _UserhomeState extends State<Userhome> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Userreport()),
+                        MaterialPageRoute(builder: (context) => Userreport(name: widget.name,)),
                       );
                     },
                     child: buildCard('Emergency Reporting', Icons.warning),

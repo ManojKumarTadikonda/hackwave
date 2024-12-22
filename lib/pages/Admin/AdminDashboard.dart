@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class AdminDashboardPage extends StatelessWidget {
+  
   // Mock Data for Dashboard
   final List<Map<String, dynamic>> dashboardData = List.generate(10, (index) {
     final percentage = 95 - index * 5; // Dynamically increasing waste %

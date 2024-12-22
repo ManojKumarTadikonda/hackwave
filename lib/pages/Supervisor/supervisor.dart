@@ -1,15 +1,81 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:hackwave/pages/login.dart';
 import 'package:hackwave/widgets/Bottom.dart';
 import 'package:hackwave/widgets/button.dart';
+import 'package:http/http.dart' as http;
 
 class Supervisor extends StatefulWidget {
+  final String name;
+  const Supervisor({super.key, required this.name});
   @override
   State<Supervisor> createState() => _SupervisorState();
 }
 
 class _SupervisorState extends State<Supervisor> {
   String selectedRole = "MVP Colony"; // Set a valid default value
+  bool isLoading = false;
   final TextEditingController usernameController = TextEditingController();
+  Future<void> _SendSignUpApi(
+    String name,
+    String email,
+    String password,
+  ) async {
+    setState(() {
+      isLoading = true;
+    });
+    final url = Uri.parse('https://gvmc.onrender.com/api/auth/signup');
+    final body = {
+      "username": name,
+      "email": email,
+      "password": password,
+      "role": 'user',
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          "Content-Type": "application/json",
+          "origin": 'http://localhost:8080',
+        },
+        body: json.encode(body),
+      );
+      print(response.body);
+      if (response.statusCode == 201) {
+        setState(() {
+          isLoading = false;
+        });
+        showSnackbar('Sign-up successful!', Colors.green);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (builder) => LoginPage(),
+          ),
+        );
+      } else {
+        showSnackbar("Sign Up failed. Enter valid username", Colors.red);
+      }
+    } catch (e) {
+      showSnackbar(
+        "An error occurred. Check your connection and try again.",
+        Colors.red,
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  void showSnackbar(String message, Color color) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      backgroundColor: color,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +84,7 @@ class _SupervisorState extends State<Supervisor> {
       body: Column(
         children: [
           AppBar(
+            automaticallyImplyLeading: false, 
             backgroundColor: const Color(0xFF4CAF50),
             actions: [
               Padding(

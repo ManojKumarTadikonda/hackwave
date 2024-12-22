@@ -5,6 +5,8 @@ import 'package:hackwave/pages/Admin/Adminfeedback.dart';
 import 'package:hackwave/widgets/Bottom.dart';
 
 class Adminhome extends StatefulWidget {
+  final String name;
+  const Adminhome({super.key, required this.name});
   @override
   _AdminhomeState createState() => _AdminhomeState();
 }
@@ -14,6 +16,7 @@ class _AdminhomeState extends State<Adminhome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, 
         backgroundColor: const Color(0xFF4CAF50),
         actions: const [
           Padding(
